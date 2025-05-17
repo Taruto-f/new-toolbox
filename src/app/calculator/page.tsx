@@ -1,11 +1,12 @@
-import { useState } from 'react';
+"use client";
+import { SetStateAction, useState } from 'react';
 
 export default function Calculator() {
   const [display, setDisplay] = useState('0');
   const [equation, setEquation] = useState('');
   const [isNewNumber, setIsNewNumber] = useState(true);
 
-  const handleNumber = (num) => {
+  const handleNumber = (num: SetStateAction<string>) => {
     if (isNewNumber) {
       setDisplay(num);
       setIsNewNumber(false);
@@ -14,7 +15,7 @@ export default function Calculator() {
     }
   };
 
-  const handleOperator = (operator) => {
+  const handleOperator = (operator: string) => {
     setEquation(display + ' ' + operator + ' ');
     setIsNewNumber(true);
   };
