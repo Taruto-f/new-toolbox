@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
-@import './globals.css';
 
 :root {
   --bg-gradient-light: linear-gradient(135deg, #667eea, #764ba2);
@@ -12,14 +11,14 @@
   --btn-border-color-dark: #707fb2;
 }
 
-[data-theme="light"] {
+.themeLight {
   --bg-gradient: var(--bg-gradient-light);
   --color: var(--color-light);
   --btn-bg: var(--btn-bg-light);
   --btn-border-color: var(--btn-border-color-light);
 }
 
-[data-theme="dark"] {
+.themeDark {
   --bg-gradient: var(--bg-gradient-dark);
   --color: var(--color-dark);
   --btn-bg: var(--btn-bg-dark);
