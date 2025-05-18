@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+:root {
+  --bg-gradient-light: linear-gradient(135deg, #667eea, #764ba2);
+  --bg-gradient-dark: linear-gradient(135deg, #222436, #2e2f4d);
+  --color-light: #eef1f7;
+  --color-dark: #cfd1e6;
+  --btn-bg-light: #4762c4;
+  --btn-bg-dark: #5969ab;
+  --btn-border-color-light: #5f74d9;
+  --btn-border-color-dark: #707fb2;
+}
+
+[data-theme="light"] {
+  --bg-gradient: var(--bg-gradient-light);
+  --color: var(--color-light);
+  --btn-bg: var(--btn-bg-light);
+  --btn-border-color: var(--btn-border-color-light);
+}
+
+[data-theme="dark"] {
+  --bg-gradient: var(--bg-gradient-dark);
+  --color: var(--color-dark);
+  --btn-bg: var(--btn-bg-dark);
+  --btn-border-color: var(--btn-border-color-dark);
+}
+
+.container {
+  margin: 0;
+  font-family: 'Roboto Slab', serif;
+  background: var(--bg-gradient);
+  color: var(--color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px 0;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--color);
+  text-align: center;
+  user-select: none;
+}
+
+.mainContainer {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  background: var(--btn-bg);
+  border-radius: 20px;
+  padding: 20px 0;
+}
+
+.toolBtn {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--btn-border-color);
+  color: var(--color);
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 15px 24px;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main .toolBtn:first-child {
+  border-top: none;
+}
+
+.toolBtn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.toolBtn:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.themeToggleBtn {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background: var(--btn-bg);
+  border: none;
+  border-radius: 12px;
+  color: var(--color);
+  font-weight: 700;
+  padding: 10px 16px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 3px 6px rgba(125, 145, 246, 0.7);
+  transition: background 0.3s ease;
+  z-index: 1000;
+  line-height: 1;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 12px;
+  font-size: 0.9rem;
+  color: var(--color);
+  user-select: none;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+@media (max-width: 400px) {
+  .mainContainer {
+    padding: 0 12px;
+  }
+  .title {
+    font-size: 2.5rem;
+    padding: 16px 0;
+  }
+  .toolBtn {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+} 

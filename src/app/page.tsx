@@ -1,108 +1,161 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import styles from './page.module.css';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-          loading="eager"
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-mono font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    const loadTheme = () => {
+      const stored = localStorage.getItem('tb_theme');
+      if (stored === 'dark' || stored === 'light') {
+        return stored;
+      }
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      return 'light';
+    };
+
+    setTheme(loadTheme());
+  }, []);
+
+  const handleThemeToggle = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('tb_theme', newTheme);
+  };
+
+  const handleToolClick = (toolUrl: string) => {
+    window.open(toolUrl, '_blank');
+  };
+
+  return (
+    <div className={styles.container} data-theme={theme}>
+      <button
+        id="themeToggleBtn"
+        aria-label={theme === 'dark' ? 'ライトモードに切り替え' : 'ダークモードに切り替え'}
+        title={theme === 'dark' ? 'ライトモードに切り替え' : 'ダークモードに切り替え'}
+        className={styles.themeToggleBtn}
+        onClick={handleThemeToggle}
+      >
+        {theme === 'dark' ? '☀️' : '🌙'}
+      </button>
+
+      <h1 className={styles.title}>ツールボックス</h1>
+
+      <div className={styles.mainContainer}>
+        <main className={styles.main}>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('calendar-memo.tsx')}
+            aria-label="カレンダー＆メモ帳を開く"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-              loading="eager"
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs"
-            target="_blank"
-            rel="noopener noreferrer"
+            カレンダー＆メモ帳
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('calculator.tsx')}
+            aria-label="電卓を開く"
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-            loading="eager"
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-            loading="eager"
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-            loading="eager"
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            電卓
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('date-calculator.tsx')}
+            aria-label="日付計算ツールを開く"
+          >
+            日付計算ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('bmi-calculator.tsx')}
+            aria-label="BMI計算ツールを開く"
+          >
+            BMI計算ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('world-clock.tsx')}
+            aria-label="世界時計ツールを開く"
+          >
+            世界時計ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('unit-converter.tsx')}
+            aria-label="単位変換ツールを開く"
+          >
+            単位変換ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('color-picker.tsx')}
+            aria-label="カラーピッカー＆コード変換ツールを開く"
+          >
+            カラーピッカー＆コード変換ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('timer-stopwatch.tsx')}
+            aria-label="タイマー＆ストップウォッチを開く"
+          >
+            タイマー＆ストップウォッチ
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('text-formatter.tsx')}
+            aria-label="テキストフォーマッター＆カウンターを開く"
+          >
+            テキストフォーマッター＆カウンター
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('image-resize-compress.tsx')}
+            aria-label="画像リサイズ＆圧縮ツールを開く"
+          >
+            画像リサイズ＆圧縮ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('qr-code.tsx')}
+            aria-label="QRコードジェネレーター＆スキャナーを開く"
+          >
+            QRコードジェネレーター＆スキャナー
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('word-quiz.tsx')}
+            aria-label="単語学習＆クイズツールを開く"
+          >
+            単語学習＆クイズツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('weather.tsx')}
+            aria-label="リアルタイム天気ツールを開く"
+          >
+            リアルタイム天気ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('js-minifier.tsx')}
+            aria-label="JavaScript圧縮ツールを開く"
+          >
+            JavaScript圧縮ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('bookmarklet-generator.tsx')}
+            aria-label="ブックマークレット生成ツールを開く"
+          >
+            ブックマークレット生成ツール
+          </button>
+        </main>
+      </div>
+
+      <footer className={styles.footer}>&copy; 2025 ツールボックス</footer>
     </div>
   );
 }
