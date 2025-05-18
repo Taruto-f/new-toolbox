@@ -1,3 +1,4 @@
+'use client';
 // pages/weather-forecast.js
 import { useState, useEffect } from 'react';
 
