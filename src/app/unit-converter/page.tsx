@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 
 type ConversionCategory = 'length' | 'weight' | 'temperature' | 'area' | 'volume';
