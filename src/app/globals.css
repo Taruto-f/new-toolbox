@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +9,14 @@
   --foreground: #171717;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --bg-gradient-light: linear-gradient(135deg, #667eea, #764ba2);
+  --bg-gradient-dark: linear-gradient(135deg, #222436, #2e2f4d);
+  --color-light: #eef1f7;
+  --color-dark: #cfd1e6;
+  --btn-bg-light: #4762c4;
+  --btn-bg-dark: #5969ab;
+  --btn-border-color-light: #5f74d9;
+  --btn-border-color-dark: #707fb2;
 }
 
 @theme inline {
@@ -57,4 +67,18 @@ button {
 input, select, textarea {
   font-family: inherit;
   font-size: inherit;
+}
+
+[data-theme="light"] {
+  --bg-gradient: var(--bg-gradient-light);
+  --color: var(--color-light);
+  --btn-bg: var(--btn-bg-light);
+  --btn-border-color: var(--btn-border-color-light);
+}
+
+[data-theme="dark"] {
+  --bg-gradient: var(--bg-gradient-dark);
+  --color: var(--color-dark);
+  --btn-bg: var(--btn-bg-dark);
+  --btn-border-color: var(--btn-border-color-dark);
 }
