@@ -31,6 +31,7 @@ export default function WorldClock() {
     { value: 'Asia/Dubai', label: 'ドバイ (UAE)' },
     { value: 'Africa/Johannesburg', label: 'ヨハネスブルグ (South Africa)' }
   ];
+  
 
   useEffect(() => {
     const stored = localStorage.getItem('worldClockCities');
