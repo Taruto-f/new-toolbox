@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
-:root {
-  --bg-gradient-light: linear-gradient(135deg, #667eea, #764ba2);
-  --bg-gradient-dark: linear-gradient(135deg, #222436, #2e2f4d);
-  --color-light: #eef1f7;
-  --color-dark: #cfd1e6;
-  --btn-bg-light: #4762c4;
-  --btn-bg-dark: #5969ab;
-  --btn-border-color-light: #5f74d9;
-  --btn-border-color-dark: #707fb2;
+.root {
+  :root {
+    --bg-gradient-light: linear-gradient(135deg, #667eea, #764ba2);
+    --bg-gradient-dark: linear-gradient(135deg, #222436, #2e2f4d);
+    --color-light: #eef1f7;
+    --color-dark: #cfd1e6;
+    --btn-bg-light: #4762c4;
+    --btn-bg-dark: #5969ab;
+    --btn-border-color-light: #5f74d9;
+    --btn-border-color-dark: #707fb2;
+  }
 }
 
 .themeLight {
