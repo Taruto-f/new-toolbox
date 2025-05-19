@@ -2,6 +2,20 @@
 import { SetStateAction, useState } from 'react';
 
 export default function Calculator() {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px',
+      padding: '20px'
+    }}>
+      <CalculatorInstance />
+      <CalculatorInstance />
+    </div>
+  );
+}
+
+function CalculatorInstance() {
   const [display, setDisplay] = useState('0');
   const [equation, setEquation] = useState('');
   const [isNewNumber, setIsNewNumber] = useState(true);
