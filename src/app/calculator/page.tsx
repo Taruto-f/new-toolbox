@@ -22,7 +22,7 @@ export default function Calculator() {
     } else {
       try {
         const currentResult = eval(equation + display);
-        setEquation(String(currentResult) + ' ' + operator + ' ');
+        setEquation(equation + display + ' ' + operator + ' ');
         setDisplay(String(currentResult));
       } catch (error) {
         setDisplay('Error');
@@ -34,8 +34,8 @@ export default function Calculator() {
 
   const handleEqual = () => {
     try {
-      const result = eval(equation + display);
       const fullEquation = equation + display;
+      const result = eval(fullEquation);
       setHistory(prev => [...prev, { equation: fullEquation, result: String(result) }]);
       setDisplay(String(result));
       setEquation('');
