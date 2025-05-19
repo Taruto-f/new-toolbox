@@ -1,77 +1,23 @@
 'use client';
-import { useState, useEffect } from 'react';
-import Script from 'next/script';
-
-// QRCodeの型定義
-declare global {
-  interface Window {
-    QRCode: {
-      new (element: HTMLElement, options: QRCodeOptions): QRCodeInstance;
-      CorrectLevel: {
-        L: number;
-        M: number;
-        Q: number;
-        H: number;
-      };
-    };
-  }
-}
-
-interface QRCodeOptions {
-  text: string;
-  width: number;
-  height: number;
-  colorDark: string;
-  colorLight: string;
-  correctLevel: number;
-}
-
-interface QRCodeInstance {
-  clear: () => void;
-}
+import { useState, useRef } from 'react';
+import { QRCodeCanvas } from 'qrcode.react';
 
 export default function QRCode() {
   const [text, setText] = useState('');
   const [size, setSize] = useState(200);
-  const [qrCode, setQrCode] = useState<QRCodeInstance | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (text && window.QRCode) {
-      const canvas = document.createElement('canvas');
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext('2d');
-
-      // 既存のQRコードをクリア
-      if (qrCode) {
-        qrCode.clear();
-      }
-
-      // 新しいQRコードを生成
-      const newQrCode = new window.QRCode(canvas, {
-        text: text,
-        width: size,
-        height: size,
-        colorDark: '#1e1e2f',
-        colorLight: '#ffffff',
-        correctLevel: window.QRCode.CorrectLevel.H
-      });
-
-      setQrCode(newQrCode);
-      setDownloadUrl(canvas.toDataURL('image/png'));
-    }
-  }, [text, size]);
+  const qrRef = useRef<HTMLDivElement>(null);
 
   const handleDownload = () => {
-    if (!downloadUrl) return;
+    if (!qrRef.current) return;
 
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = 'qrcode.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const canvas = qrRef.current.querySelector('canvas');
+    if (!canvas) return;
+
+    const pngFile = canvas.toDataURL('image/png');
+    const downloadLink = document.createElement('a');
+    downloadLink.download = 'qrcode.png';
+    downloadLink.href = pngFile;
+    downloadLink.click();
   };
 
   return (
@@ -86,11 +32,6 @@ export default function QRCode() {
       color: '#eef1f7',
       fontFamily: "'Roboto Slab', serif"
     }}>
-      <Script
-        src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"
-        strategy="afterInteractive"
-      />
-
       <h1 style={{
         fontWeight: '700',
         fontSize: '1.5rem',
@@ -151,7 +92,7 @@ export default function QRCode() {
           </label>
         </div>
 
-        {qrCode && (
+        {text && (
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -159,6 +100,7 @@ export default function QRCode() {
             gap: '20px'
           }}>
             <div
+              ref={qrRef}
               style={{
                 background: '#ffffff',
                 padding: '20px',
@@ -166,11 +108,20 @@ export default function QRCode() {
                 display: 'inline-block'
               }}
             >
-              <canvas
-                width={size}
-                height={size}
-                style={{
-                  display: 'block'
+              <QRCodeCanvas
+                value={text}
+                size={size}
+                bgColor="#ffffff"
+                fgColor="#1e1e2f"
+                level="H"
+                includeMargin={false}
+                imageSettings={{
+                  src: "/favicon.ico",
+                  x: undefined,
+                  y: undefined,
+                  height: size * 0.2,
+                  width: size * 0.2,
+                  excavate: true,
                 }}
               />
             </div>
