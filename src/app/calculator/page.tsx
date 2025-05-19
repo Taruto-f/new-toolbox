@@ -25,11 +25,22 @@ export default function Calculator() {
   };
 
   const handleOperator = (operator: string) => {
+    if (display === 'Error') {
+      return;
+    }
+    
+    if (isNaN(Number(display))) {
+      return;
+    }
+
     if (equation === '') {
       setEquation(display + ' ' + operator + ' ');
     } else {
       try {
         const currentResult = eval(equation + display);
+        if (isNaN(currentResult)) {
+          throw new Error('無効な計算です');
+        }
         setEquation(equation + display + ' ' + operator + ' ');
         setDisplay(String(currentResult));
       } catch (error) {
