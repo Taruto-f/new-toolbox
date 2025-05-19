@@ -12,7 +12,9 @@ export default function Calculator() {
       setDisplay(num);
       setIsNewNumber(false);
     } else {
-      setDisplay(display + num);
+      if (display.length < 10) {
+        setDisplay(display + num);
+      }
     }
   };
 
@@ -36,8 +38,9 @@ export default function Calculator() {
     try {
       const fullEquation = equation + display;
       const result = eval(fullEquation);
-      setHistory(prev => [...prev, { equation: fullEquation, result: String(result) }]);
-      setDisplay(String(result));
+      const formattedResult = Number(result).toFixed(10).replace(/\.?0+$/, '');
+      setHistory(prev => [...prev, { equation: fullEquation, result: formattedResult }]);
+      setDisplay(formattedResult);
       setEquation('');
       setIsNewNumber(true);
     } catch (error) {
