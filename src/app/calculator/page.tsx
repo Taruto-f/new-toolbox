@@ -47,6 +47,9 @@ export default function Calculator() {
         throw new Error('0での除算はできません');
       }
       const result = eval(fullEquation);
+      if (isNaN(result)) {
+        throw new Error('無効な計算です');
+      }
       const formattedResult = Number(result).toFixed(10).replace(/\.?0+$/, '');
       setHistory(prev => [...prev, { equation: fullEquation, result: formattedResult }]);
       setDisplay(formattedResult);
