@@ -15,6 +15,8 @@ export default function Calculator() {
       if (display.length < 10) {
         if (display === '0' && num !== '0') {
           setDisplay(num);
+        } else if (display === '0' && num === '0') {
+          setDisplay('0');
         } else {
           setDisplay(display + num);
         }
@@ -69,7 +71,9 @@ export default function Calculator() {
       setDisplay('0.');
       setIsNewNumber(false);
     } else if (!display.includes('.')) {
-      setDisplay(display + '.');
+      if (display.length < 10) {
+        setDisplay(display + '.');
+      }
     }
   };
 
