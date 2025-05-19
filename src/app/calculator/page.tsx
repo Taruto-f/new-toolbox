@@ -43,6 +43,9 @@ export default function Calculator() {
   const handleEqual = () => {
     try {
       const fullEquation = equation + display;
+      if (fullEquation.includes('/0') || fullEquation === '0/0') {
+        throw new Error('0での除算はできません');
+      }
       const result = eval(fullEquation);
       const formattedResult = Number(result).toFixed(10).replace(/\.?0+$/, '');
       setHistory(prev => [...prev, { equation: fullEquation, result: formattedResult }]);
