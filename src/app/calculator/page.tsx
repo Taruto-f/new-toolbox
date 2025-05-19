@@ -6,13 +6,70 @@ export default function Calculator() {
   const [equation, setEquation] = useState('');
   const [isNewNumber, setIsNewNumber] = useState(true);
   const [history, setHistory] = useState<Array<{ equation: string; result: string }>>([]);
+  const MAX_HISTORY = 50;
+  const MAX_DISPLAY_LENGTH = 10;
+
+  // 数式のバリデーション
+  const isValidNumber = (value: string): boolean => {
+    return !isNaN(Number(value)) && value !== 'Error';
+  };
+
+  // 0除算チェック
+  const hasDivisionByZero = (expr: string): boolean => {
+    const parts = expr.split(' ');
+    for (let i = 0; i < parts.length; i++) {
+      if (parts[i] === '/' && Number(parts[i + 1]) === 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // 安全な数式評価
+  const safeEvaluate = (expr: string): number => {
+    const parts = expr.split(' ');
+    let result = Number(parts[0]);
+    
+    for (let i = 1; i < parts.length; i += 2) {
+      const operator = parts[i];
+      const operand = Number(parts[i + 1]);
+      
+      if (isNaN(operand)) {
+        throw new Error('無効な数値です');
+      }
+
+      switch (operator) {
+        case '+':
+          result += operand;
+          break;
+        case '-':
+          result -= operand;
+          break;
+        case '*':
+          result *= operand;
+          break;
+        case '/':
+          if (operand === 0) {
+            throw new Error('0での除算はできません');
+          }
+          result /= operand;
+          break;
+        default:
+          throw new Error('無効な演算子です');
+      }
+    }
+    
+    return result;
+  };
 
   const handleNumber = (num: SetStateAction<string>) => {
+    if (!isValidNumber(display)) return;
+
     if (isNewNumber) {
       setDisplay(num);
       setIsNewNumber(false);
     } else {
-      if (display.length < 10) {
+      if (display.length < MAX_DISPLAY_LENGTH) {
         if (display === '0' && num !== '0') {
           setDisplay(num);
         } else if (display === '0' && num === '0') {
@@ -25,19 +82,13 @@ export default function Calculator() {
   };
 
   const handleOperator = (operator: string) => {
-    if (display === 'Error') {
-      return;
-    }
-    
-    if (isNaN(Number(display))) {
-      return;
-    }
+    if (!isValidNumber(display)) return;
 
     if (equation === '') {
       setEquation(display + ' ' + operator + ' ');
     } else {
       try {
-        const currentResult = eval(equation + display);
+        const currentResult = safeEvaluate(equation + display);
         if (isNaN(currentResult)) {
           throw new Error('無効な計算です');
         }
@@ -54,15 +105,21 @@ export default function Calculator() {
   const handleEqual = () => {
     try {
       const fullEquation = equation + display;
-      if (fullEquation.includes('/0') || fullEquation === '0/0') {
+      if (hasDivisionByZero(fullEquation)) {
         throw new Error('0での除算はできません');
       }
-      const result = eval(fullEquation);
+      const result = safeEvaluate(fullEquation);
       if (isNaN(result)) {
         throw new Error('無効な計算です');
       }
       const formattedResult = Number(result).toFixed(10).replace(/\.?0+$/, '');
-      setHistory(prev => [...prev, { equation: fullEquation, result: formattedResult }]);
+      
+      // 履歴の上限チェック
+      setHistory(prev => {
+        const newHistory = [...prev, { equation: fullEquation, result: formattedResult }];
+        return newHistory.slice(-MAX_HISTORY);
+      });
+      
       setDisplay(formattedResult);
       setEquation('');
       setIsNewNumber(true);
@@ -84,23 +141,40 @@ export default function Calculator() {
   };
 
   const handleDecimal = () => {
+    if (!isValidNumber(display)) return;
+
     if (isNewNumber) {
       setDisplay('0.');
       setIsNewNumber(false);
     } else if (!display.includes('.')) {
-      if (display.length < 10) {
+      if (display.length < MAX_DISPLAY_LENGTH) {
         setDisplay(display + '.');
       }
     }
   };
 
   const handlePercent = () => {
-    const value = parseFloat(display);
-    setDisplay(String(value / 100));
+    if (!isValidNumber(display)) return;
+    
+    try {
+      const value = Number(display) / 100;
+      const formattedValue = value.toFixed(10).replace(/\.?0+$/, '');
+      setDisplay(formattedValue);
+    } catch (error) {
+      setDisplay('Error');
+    }
   };
 
   const handlePlusMinus = () => {
-    setDisplay(String(-parseFloat(display)));
+    if (!isValidNumber(display)) return;
+    
+    try {
+      const value = -Number(display);
+      // -0の場合は0を表示
+      setDisplay(value === 0 ? '0' : String(value));
+    } catch (error) {
+      setDisplay('Error');
+    }
   };
 
   return (
