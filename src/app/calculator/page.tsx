@@ -13,7 +13,11 @@ export default function Calculator() {
       setIsNewNumber(false);
     } else {
       if (display.length < 10) {
-        setDisplay(display + num);
+        if (display === '0' && num !== '0') {
+          setDisplay(num);
+        } else {
+          setDisplay(display + num);
+        }
       }
     }
   };
