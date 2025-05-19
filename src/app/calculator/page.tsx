@@ -30,7 +30,18 @@ function CalculatorInstance() {
   };
 
   const handleOperator = (operator: string) => {
-    setEquation(display + ' ' + operator + ' ');
+    if (equation === '') {
+      setEquation(display + ' ' + operator + ' ');
+    } else {
+      try {
+        const currentResult = eval(equation + display);
+        setEquation(String(currentResult) + ' ' + operator + ' ');
+        setDisplay(String(currentResult));
+      } catch (error) {
+        setDisplay('Error');
+        setEquation('');
+      }
+    }
     setIsNewNumber(true);
   };
 
