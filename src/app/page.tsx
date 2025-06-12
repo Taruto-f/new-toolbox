@@ -152,6 +152,13 @@ export default function Home() {
           >
             ブックマークレット生成ツール
           </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('simultaneous-equations')}
+            aria-label="連立方程式を開く"
+          >
+            連立方程式
+          </button>
         </main>
       </div>
 
