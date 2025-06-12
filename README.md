@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ツールボックス (Toolbox)
 
-## Getting Started
+このプロジェクトは、様々な便利なツールをまとめたWebアプリケーションのセットです。  
+シンプルでモダンかつモバイル対応の使いやすいデザインで、ブラウザ上で動作します。
 
-First, run the development server:
+## 含まれるツール
+- カレンダー＆メモ帳  
+- 電卓  
+- 日付計算ツール  
+- BMI計算ツール  
+- 世界時計ツール  
+- 単位変換ツール  
+- カラーピッカー＆コード変換ツール  
+- タイマー＆ストップウォッチ  
+- テキストフォーマッター＆カウンター  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 特徴
+- 全て静的HTMLファイルで構成されているため、サーバー不要で簡単に利用可能。  
+- GitHub Pages等でホスティング可能。  
+- ダークモード対応（テーマ切り替えボタンあり）で目に優しい。  
+- 各ツールは独立しており、必要なものだけを個別に開けます。  
+- ローカルストレージにデータを保存するため、メモや設定が保持されます。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 使用方法
+1. `index.html` を開くとツール一覧が表示されます。  
+2. 各ボタンを押すと該当ツールが新しいタブで開きます。  
+3. ツール毎に用意されたUIで操作してください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 開発環境
+- HTML5 / CSS3 / JavaScript  
+- Google Fonts (Roboto Slab) を利用  
+- ブラウザのモダン機能に依存（最新のChrome, Firefox, Edge, Safari推奨）
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## デプロイ
+GitHub Pagesを使って簡単にホスティング可能です。  
+公開URL例: `[https://taruto-f.github.io/Toolbox/toolbox-app/]`
 
-## Learn More
+## 更新履歴
+5/11（日）:カレンダー&メモと電卓に機能追加。
+5/12（月）:日付計算機能のバグを修正。背景の文字のバグを修正。単位変換ツールに機能を追加。
+5/14（水）:新たに３つのツールを追加。
+5/15（木）:文字数制限を二つのツールに追加。
+5/16（金）:新たにツールを追加。
 
-To learn more about Next.js, take a look at the following resources:
+## ライセンス
+MIT License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+作成者: [Taruto-f]  
+お問い合わせ: [Issues]
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
