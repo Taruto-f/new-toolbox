@@ -14,6 +14,9 @@ const Root = styled.div`
   margin: 20px auto;
   color: #eef1f7;
   font-family: 'Roboto Slab', serif;
+  min-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`
@@ -31,6 +34,7 @@ const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem 2rem;
+  flex: 1;
 
   @media (max-width: 480px) {
     grid-template-columns: 1fr 1fr;
@@ -138,6 +142,10 @@ const HomeButton = styled(Link)`
   }
 `;
 
+const ButtonContainer = styled.div`
+  margin-top: auto;
+`;
+
 type Solution = {
   type: 'unique' | 'none' | 'infinite';
   x?: number;
@@ -233,9 +241,11 @@ export default function SimultaneousEquations() {
         {result}
       </Result>
 
-      <HomeButton href="/" aria-label="ホームに戻る">
-        ホームに戻る
-      </HomeButton>
+      <ButtonContainer>
+        <HomeButton href="/" aria-label="ホームに戻る">
+          ホームに戻る
+        </HomeButton>
+      </ButtonContainer>
     </Root>
   );
 }
