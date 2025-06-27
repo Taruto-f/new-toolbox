@@ -159,6 +159,34 @@ export default function Home() {
           >
             連立方程式
           </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('password-generator')}
+            aria-label="パスワード生成ツールを開く"
+          >
+            パスワード生成ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('image-format-converter')}
+            aria-label="画像フォーマット変換ツールを開く"
+          >
+            画像フォーマット変換ツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('html-escape-unescape')}
+            aria-label="HTMLエスケープ／アンエスケープツールを開く"
+          >
+            HTMLエスケープ／アンエスケープツール
+          </button>
+          <button
+            className={styles.toolBtn}
+            onClick={() => handleToolClick('file-rename')}
+            aria-label="ファイル名一括リネームツールを開く"
+          >
+            ファイル名一括リネームツール
+          </button>
         </main>
       </div>
 
