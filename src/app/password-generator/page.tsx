@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from "react";
 
 const generatePassword = (length: number, useUpper: boolean, useLower: boolean, useNumber: boolean, useSymbol: boolean) => {
