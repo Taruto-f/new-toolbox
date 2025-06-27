@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import styles from "../page.module.css";
+import styled from 'styled-components';
 
 function escapeHtml(text: string) {
   return text.replace(/[&<>'"]/g, (char) => {
@@ -24,6 +25,38 @@ function unescapeHtml(text: string) {
     .replace(/&quot;/g, '"');
 }
 
+const Root = styled.div`
+  background: #1e1e2f;
+  border-radius: 15px;
+  padding: 40px 0;
+  max-width: 900px;
+  width: 90vw;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+  margin: 40px auto;
+  color: #eef1f7;
+  font-family: 'Roboto Slab', serif;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+`;
+
+const Box = styled.div`
+  background: #2c2c48;
+  border-radius: 10px;
+  padding: 32px 24px;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+  max-width: 420px;
+  width: 100%;
+`;
+
+const Title = styled.h1`
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  text-align: center;
+`;
+
 export default function HtmlEscapeUnescape() {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"escape" | "unescape">("escape");
@@ -43,38 +76,38 @@ export default function HtmlEscapeUnescape() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>HTMLエスケープ／アンエスケープツール</h2>
-      <div className={styles.content}>
+    <Root>
+      <Box>
+        <Title>HTMLエスケープ／アンエスケープツール</Title>
         <textarea
-          className="w-full p-2 border rounded mb-4 bg-gray-100 dark:bg-gray-700"
+          style={{ width: '100%', padding: 8, borderRadius: 8, border: 'none', background: '#3a3a67', color: '#eef1f7', marginBottom: 16 }}
           rows={4}
           placeholder="ここにテキストを入力してください"
           value={input}
           onChange={e => setInput(e.target.value)}
         />
-        <div className="flex gap-4 mb-4 justify-center">
+        <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginBottom: 16 }}>
           <button
-            className={`px-4 py-2 rounded font-bold transition ${mode === "escape" ? "bg-blue-600 text-white" : "bg-gray-200 dark:bg-gray-700"}`}
-            onClick={() => setMode("escape")}
+            style={{ padding: '8px 20px', borderRadius: 8, fontWeight: 700, fontSize: '1rem', background: mode === 'escape' ? '#7d91f6' : '#3a3a67', color: mode === 'escape' ? '#1e1e2f' : '#eef1f7', border: 'none', cursor: 'pointer', transition: 'background 0.3s' }}
+            onClick={() => setMode('escape')}
           >
             エスケープ
           </button>
           <button
-            className={`px-4 py-2 rounded font-bold transition ${mode === "unescape" ? "bg-blue-600 text-white" : "bg-gray-200 dark:bg-gray-700"}`}
-            onClick={() => setMode("unescape")}
+            style={{ padding: '8px 20px', borderRadius: 8, fontWeight: 700, fontSize: '1rem', background: mode === 'unescape' ? '#7d91f6' : '#3a3a67', color: mode === 'unescape' ? '#1e1e2f' : '#eef1f7', border: 'none', cursor: 'pointer', transition: 'background 0.3s' }}
+            onClick={() => setMode('unescape')}
           >
             アンエスケープ
           </button>
         </div>
         <button
           onClick={handleConvert}
-          className={"w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition"}
+          style={{ width: '100%', background: '#7d91f6', color: '#1e1e2f', fontWeight: 700, padding: '12px', borderRadius: 8, border: 'none', marginBottom: 16, fontSize: '1rem', cursor: 'pointer', transition: 'background 0.3s' }}
         >
           変換
         </button>
         <textarea
-          className="w-full p-2 border rounded mb-2 bg-gray-100 dark:bg-gray-700"
+          style={{ width: '100%', padding: 8, borderRadius: 8, border: 'none', background: '#3a3a67', color: '#eef1f7', marginBottom: 12 }}
           rows={4}
           value={output}
           readOnly
@@ -83,11 +116,11 @@ export default function HtmlEscapeUnescape() {
         <button
           onClick={handleCopy}
           disabled={!output}
-          className={"w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition disabled:opacity-50"}
+          style={{ width: '100%', background: '#8d9ff6', color: '#1e1e2f', fontWeight: 700, padding: '12px', borderRadius: 8, border: 'none', fontSize: '1rem', cursor: output ? 'pointer' : 'not-allowed', opacity: output ? 1 : 0.5, transition: 'background 0.3s' }}
         >
           {copied ? "コピーしました！" : "コピー"}
         </button>
-      </div>
-    </div>
+      </Box>
+    </Root>
   );
 } 

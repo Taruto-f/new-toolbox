@@ -1,6 +1,39 @@
 'use client';
 import React, { useState } from "react";
 import styles from "../page.module.css";
+import styled from 'styled-components';
+
+const Root = styled.div`
+  background: #1e1e2f;
+  border-radius: 15px;
+  padding: 40px 0;
+  max-width: 900px;
+  width: 90vw;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+  margin: 40px auto;
+  color: #eef1f7;
+  font-family: 'Roboto Slab', serif;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+`;
+
+const Box = styled.div`
+  background: #2c2c48;
+  border-radius: 10px;
+  padding: 32px 24px;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+  max-width: 420px;
+  width: 100%;
+`;
+
+const Title = styled.h1`
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  text-align: center;
+`;
 
 export default function ImageFormatConverter() {
   const [file, setFile] = useState<File | null>(null);
@@ -47,19 +80,19 @@ export default function ImageFormatConverter() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>画像フォーマット変換ツール</h2>
-      <div className={styles.content}>
-        <div className="mb-4">
+    <Root>
+      <Box>
+        <Title>画像フォーマット変換ツール</Title>
+        <div style={{ marginBottom: 24 }}>
           <input
             type="file"
             accept="image/png, image/jpeg"
             onChange={handleFileChange}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            style={{ width: '100%', marginBottom: 8 }}
           />
         </div>
-        <div className="mb-4 flex gap-4 justify-center">
-          <label className="flex items-center gap-2">
+        <div style={{ display: 'flex', gap: 24, justifyContent: 'center', marginBottom: 24 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             <input
               type="radio"
               name="format"
@@ -69,7 +102,7 @@ export default function ImageFormatConverter() {
             />
             PNG
           </label>
-          <label className="flex items-center gap-2">
+          <label style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             <input
               type="radio"
               name="format"
@@ -83,23 +116,23 @@ export default function ImageFormatConverter() {
         <button
           onClick={handleConvert}
           disabled={!file || loading}
-          className={"w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition disabled:opacity-50"}
+          style={{ width: '100%', background: '#7d91f6', color: '#1e1e2f', fontWeight: 700, padding: '12px', borderRadius: 8, border: 'none', marginBottom: 16, fontSize: '1rem', cursor: !file || loading ? 'not-allowed' : 'pointer', opacity: !file || loading ? 0.5 : 1, transition: 'background 0.3s' }}
         >
           変換
         </button>
         {outputUrl && (
-          <div className="flex flex-col items-center gap-2">
-            <img src={outputUrl} alt="変換後の画像" className="max-w-full max-h-48 border rounded" />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+            <img src={outputUrl} alt="変換後の画像" style={{ maxWidth: '100%', maxHeight: 192, borderRadius: 8, border: '1px solid #444' }} />
             <a
               href={outputUrl}
               download={getFileName()}
-              className={"bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition"}
+              style={{ background: '#8d9ff6', color: '#1e1e2f', fontWeight: 700, padding: '10px 24px', borderRadius: 8, textDecoration: 'none', fontSize: '1rem', marginTop: 8, display: 'inline-block', transition: 'background 0.3s' }}
             >
               ダウンロード
             </a>
           </div>
         )}
-      </div>
-    </div>
+      </Box>
+    </Root>
   );
 } 
