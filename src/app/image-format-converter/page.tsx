@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from "react";
+import styles from "../page.module.css";
 
 export default function ImageFormatConverter() {
   const [file, setFile] = useState<File | null>(null);
@@ -46,9 +47,9 @@ export default function ImageFormatConverter() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-4 text-center">画像フォーマット変換ツール</h1>
+    <div className={styles.container}>
+      <h2 className={styles.title}>画像フォーマット変換ツール</h2>
+      <div className={styles.content}>
         <div className="mb-4">
           <input
             type="file"
@@ -82,7 +83,7 @@ export default function ImageFormatConverter() {
         <button
           onClick={handleConvert}
           disabled={!file || loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition disabled:opacity-50"
+          className={"w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition disabled:opacity-50"}
         >
           変換
         </button>
@@ -92,13 +93,13 @@ export default function ImageFormatConverter() {
             <a
               href={outputUrl}
               download={getFileName()}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition"
+              className={"bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition"}
             >
               ダウンロード
             </a>
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 } 

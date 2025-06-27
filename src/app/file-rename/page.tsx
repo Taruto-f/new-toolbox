@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from "react";
+import styles from "../page.module.css";
 
 function getRenamedFiles(files: File[], prefix: string, suffix: string, start: number) {
   return files.map((file, idx) => {
@@ -44,9 +45,9 @@ export default function FileRename() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-4 text-center">ファイル名一括リネームツール</h1>
+    <div className={styles.container}>
+      <h2 className={styles.title}>ファイル名一括リネームツール</h2>
+      <div className={styles.content}>
         <input
           type="file"
           multiple
@@ -80,7 +81,7 @@ export default function FileRename() {
         <button
           onClick={handleRename}
           disabled={files.length === 0}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition disabled:opacity-50"
+          className={"w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition disabled:opacity-50"}
         >
           リネームプレビュー
         </button>
@@ -93,13 +94,13 @@ export default function FileRename() {
             </ul>
             <button
               onClick={handleDownloadAll}
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition"
+              className={"w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition"}
             >
               一括ダウンロード
             </button>
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 } 

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from "react";
+import styles from "../page.module.css";
 
 const generatePassword = (length: number, useUpper: boolean, useLower: boolean, useNumber: boolean, useSymbol: boolean) => {
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -41,9 +42,9 @@ export default function PasswordGenerator() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-4 text-center">パスワード生成ツール</h1>
+    <div className={styles.container}>
+      <h2 className={styles.title}>パスワード生成ツール</h2>
+      <div className={styles.content}>
         <div className="mb-4">
           <label className="block mb-1 font-medium">長さ: {length}</label>
           <input
@@ -75,7 +76,7 @@ export default function PasswordGenerator() {
         </div>
         <button
           onClick={handleGenerate}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition"
+          className={"w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition"}
         >
           生成
         </button>
@@ -84,18 +85,18 @@ export default function PasswordGenerator() {
             type="text"
             value={password}
             readOnly
-            className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 text-center font-mono"
+            className={"w-full p-2 border rounded bg-gray-100 dark:bg-gray-700 text-center font-mono"}
             placeholder="ここに生成結果が表示されます"
           />
         </div>
         <button
           onClick={handleCopy}
           disabled={!password}
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition disabled:opacity-50"
+          className={"w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition disabled:opacity-50"}
         >
           {copied ? "コピーしました！" : "コピー"}
         </button>
       </div>
-    </main>
+    </div>
   );
 } 

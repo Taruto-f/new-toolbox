@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from "react";
+import styles from "../page.module.css";
 
 function escapeHtml(text: string) {
   return text.replace(/[&<>'"]/g, (char) => {
@@ -42,9 +43,9 @@ export default function HtmlEscapeUnescape() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-4 text-center">HTMLエスケープ／アンエスケープツール</h1>
+    <div className={styles.container}>
+      <h2 className={styles.title}>HTMLエスケープ／アンエスケープツール</h2>
+      <div className={styles.content}>
         <textarea
           className="w-full p-2 border rounded mb-4 bg-gray-100 dark:bg-gray-700"
           rows={4}
@@ -68,7 +69,7 @@ export default function HtmlEscapeUnescape() {
         </div>
         <button
           onClick={handleConvert}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition"
+          className={"w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition"}
         >
           変換
         </button>
@@ -82,11 +83,11 @@ export default function HtmlEscapeUnescape() {
         <button
           onClick={handleCopy}
           disabled={!output}
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition disabled:opacity-50"
+          className={"w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition disabled:opacity-50"}
         >
           {copied ? "コピーしました！" : "コピー"}
         </button>
       </div>
-    </main>
+    </div>
   );
 } 
